@@ -41,6 +41,32 @@ export default function ToneQuiz() {
       id: "playful",
       label: "Playful 🎉",
       description: "Lighthearted and fun — a supportive friend who makes you smile.",
+// app/tone/page.jsx
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import "../../styles/tone.css";
+
+export default function ToneQuiz() {
+  const router = useRouter();
+  const [selectedTone, setSelectedTone] = useState(null);
+
+  useEffect(() => {
+    const savedTone = localStorage.getItem("selectedTone");
+    if (savedTone) setSelectedTone(savedTone);
+  }, []);
+
+  const tones = [
+    {
+      id: "calm",
+      label: "Calm 💆‍♀️",
+      description: "Gentle, soothing, supportive tone to ease anxiety and overwhelm.",
+    },
+    {
+      id: "playful",
+      label: "Playful 🎉",
+      description: "Lighthearted and fun — a supportive friend who makes you smile.",
     },
     {
       id: "realtalk",
@@ -51,8 +77,7 @@ export default function ToneQuiz() {
 
   const handleSelect = (id) => {
     setSelectedTone(id);
-    localStorage.setItem("selectedTone", id); // Save selection
-    console.log("Selected tone saved:", id);
+    localStorage.setItem("selectedTone", id);
   };
 
   const handleNext = () => {
@@ -60,8 +85,7 @@ export default function ToneQuiz() {
       alert("Please select a tone before continuing.");
       return;
     }
-    alert(`You selected: ${selectedTone}`);
-    // Later: navigate to next step or page here
+    router.push("/pregnancy-week");
   };
 
   return (
