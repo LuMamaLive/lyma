@@ -1,11 +1,17 @@
-// app/tone/page.jsx
 "use client";
 
-export default function TonePage() {
+import "../../styles/tone.css";
+
+export default function ToneQuiz() {
   return (
-    <main className="hero">
+    <main className="tone-container">
       <h1>Which tone of support feels right for you today?</h1>
-      <p>This is the tone quiz page (placeholder).</p>
+      <div className="tone-options">
+        <button className="tone-card calm">Calm 💆‍♀️</button>
+        <button className="tone-card practical">Practical 🛠️</button>
+        <button className="tone-card cheerful">Cheerful 🌈</button>
+        <button className="tone-card deep">Deep 💭</button>
+      </div>
     </main>
   );
 }

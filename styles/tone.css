@@ -1,0 +1,45 @@
+.tone-container {
+  padding: 2rem;
+  background-color: #fff;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.tone-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 1.5rem;
+}
+
+.tone-card {
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+.tone-card:hover {
+  background-color: #ffe6f0;
+}
+
+.tone-card.calm {
+  border-color: #009688;
+}
+
+.tone-card.practical {
+  border-color: #607d8b;
+}
+
+.tone-card.cheerful {
+  border-color: #ff9800;
+}
+
+.tone-card.deep {
+  border-color: #673ab7;
+}
