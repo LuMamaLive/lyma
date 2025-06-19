@@ -62,16 +62,38 @@ export default function ToneQuiz() {
       description: "Gentle, soothing, supportive tone to ease anxiety and overwhelm.",
     },
     {
-      id: "playful",
-      label: "Playful 🎉",
-      description: "Lighthearted and fun — a supportive friend who makes you smile.",
-    },
-    {
-      id: "realtalk",
-      label: "Realtalk 💬",
-      description: "Honest, direct, no-fluff advice from someone who’s been there.",
-    },
-  ];
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import "../../styles/tone.css";
+
+const tones = [
+  {
+    id: "calm",
+    label: "Calm 💆‍♀️",
+    description: "Gentle, soothing, supportive tone to ease anxiety and overwhelm.",
+  },
+  {
+    id: "playful",
+    label: "Playful 🎉",
+    description: "Lighthearted and fun — a supportive friend who makes you smile.",
+  },
+  {
+    id: "realtalk",
+    label: "Realtalk 💬",
+    description: "Honest, direct, no-fluff advice from someone who’s been there.",
+  },
+];
+
+export default function ToneQuiz() {
+  const router = useRouter();
+  const [selectedTone, setSelectedTone] = useState(null);
+
+  useEffect(() => {
+    const savedTone = localStorage.getItem("selectedTone");
+    if (savedTone) setSelectedTone(savedTone);
+  }, []);
 
   const handleSelect = (id) => {
     setSelectedTone(id);
