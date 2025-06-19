@@ -41,7 +41,7 @@ export default function ToneQuiz() {
       alert("Please select a tone before continuing.");
       return;
     }
-    router.push("/pregnancy-week");
+    router.push("/journey-stage");
   };
 
   return (
