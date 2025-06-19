@@ -1,0 +1,29 @@
+LuMama Stop Point: v1.2
+----------------------------
+
+📅 Date: June 19, 2025
+
+✅ Stack:
+- Next.js
+- Tailwind CSS
+- LocalStorage (7-day memory logic)
+
+✅ Features Working:
+1. Tone selection (calm, realtalk, playful) with no auto-preselect
+2. Journey stage logic (TTC, Pregnant, Postpartum, Mom of young child)
+3. Detail stage refinement by week/month
+4. Postpartum (0 months) triggers optional week input (1–4)
+5. LocalStorage expires after 7 days
+6. "Reset Quiz" button (visible only for returning users)
+7. Back button on each quiz stage
+8. Inputs capped:
+   - Pregnant: max 44 weeks
+   - Postpartum: max 18 months
+   - Mom of young child: max 60 months
+
+📌 Notes:
+- This stop point is stable, tested, and visually functional
+- Backup located in /bak/lumama_pre_reset_button.zip
+- README may not open locally due to file preview limitations; use a code editor like VSCode or Sublime Text
+
+🧷 Use this file as a rebase point before introducing any new architecture or logic changes.
