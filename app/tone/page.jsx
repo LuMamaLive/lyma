@@ -15,7 +15,6 @@ export default function ToneQuiz() {
   }, []);
 
   const tones = [
-  "use client";
 
 import { useState, useEffect } from "react";
 import "../../styles/tone.css";
@@ -42,7 +41,6 @@ export default function ToneQuiz() {
       label: "Playful 🎉",
       description: "Lighthearted and fun — a supportive friend who makes you smile.",
 // app/tone/page.jsx
-"use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
