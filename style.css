@@ -5,3 +5,19 @@ body {
   background: #fafafa;
   color: #333;
 }
+
+.hero-container {
+  padding: 3rem;
+  text-align: center;
+}
+
+.start-quiz-button {
+  background-color: #f48fb1;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 1.5rem;
+}

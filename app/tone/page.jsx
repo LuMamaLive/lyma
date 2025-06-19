@@ -59,8 +59,9 @@ export default function TonePage() {
           </button>
         ))}
       </div>
+      <p className="tone-helper-text">Your choice helps us personalize every step.</p>
       <button className="next-button" onClick={handleNext} type="button">
-        Next
+        Let’s Begin
       </button>
     </main>
   );

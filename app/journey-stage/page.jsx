@@ -3,33 +3,65 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import '../../styles/journeyStage.css';
 
+const stages = [
+  { id: 'TTC', label: 'Trying to Conceive' },
+  { id: 'Pregnant', label: 'Pregnant' },
+  { id: 'Postpartum', label: 'Postpartum (0–18 months)' },
+  { id: 'Mom of Young Child', label: 'Mom of Young Child (0–60 months)' },
+];
+
 export default function JourneyStagePage() {
   const router = useRouter();
   const [stage, setStage] = useState('');
   const [detail, setDetail] = useState('');
 
-  const handleStageChange = (value) => {
-    setStage(value);
-    localStorage.setItem('journeyStage', value);
+  const handleSelect = (id) => {
+    setStage(id);
+    localStorage.setItem('journeyStage', id);
   };
 
-  const handleDetailBlur = () => {
-    if (detail !== '') {
-      localStorage.setItem('stageDetail', detail);
-      router.push('/pregnancy-week');
+  const handleBack = () => {
+    router.back();
+  };
+
+  const handleContinue = () => {
+    if (!stage) {
+      alert('Please select your journey stage before continuing.');
+      return;
     }
+
+    if (stage === 'Pregnant' || stage === 'Postpartum' || stage === 'Mom of Young Child') {
+      return; // Wait for input
+    }
+
+    router.push('/pregnancy-week');
+  };
+
+  const handleDetailSubmit = () => {
+    if (!detail) {
+      alert('Please enter a valid number.');
+      return;
+    }
+
+    localStorage.setItem('stageDetail', detail);
+    router.push('/pregnancy-week');
   };
 
   return (
     <main className="journey-stage-container">
       <h2>Where are you in your journey?</h2>
-      <select onChange={(e) => handleStageChange(e.target.value)} defaultValue="">
-        <option value="" disabled>Select one</option>
-        <option value="TTC">Trying to Conceive</option>
-        <option value="Pregnant">Pregnant</option>
-        <option value="Postpartum">Postpartum (0–18 months)</option>
-        <option value="Mom of Young Child">Mom of Young Child (0–60 months)</option>
-      </select>
+      <div className="stage-options">
+        {stages.map(({ id, label }) => (
+          <button
+            key={id}
+            className={`stage-card ${stage === id ? 'selected' : ''}`}
+            onClick={() => handleSelect(id)}
+            type="button"
+          >
+            {label}
+          </button>
+        ))}
+      </div>
 
       {(stage === 'Pregnant') && (
         <div className="detail-input">
@@ -40,8 +72,8 @@ export default function JourneyStagePage() {
             max="44"
             value={detail}
             onChange={(e) => setDetail(e.target.value)}
-            onBlur={handleDetailBlur}
           />
+          <button onClick={handleDetailSubmit} type="button">Personalize My Experience</button>
         </div>
       )}
 
@@ -54,10 +86,17 @@ export default function JourneyStagePage() {
             max="60"
             value={detail}
             onChange={(e) => setDetail(e.target.value)}
-            onBlur={handleDetailBlur}
           />
+          <button onClick={handleDetailSubmit} type="button">Personalize My Experience</button>
         </div>
       )}
+
+      <div className="buttons-row">
+        <button className="back-button" onClick={handleBack} type="button">Back</button>
+        {(stage === 'TTC') && (
+          <button className="next-button" onClick={handleContinue} type="button">Continue</button>
+        )}
+      </div>
     </main>
   );
 }
