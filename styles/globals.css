@@ -1,0 +1,17 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to right, #ffdee9, #b5fffc);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.hero h1 {
+  font-size: 3rem;
+  color: #e91e63;
+}
+.hero p {
+  font-size: 1.5rem;
+  color: #555;
+}
