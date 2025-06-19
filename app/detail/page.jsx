@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -6,9 +5,9 @@ import dynamic from "next/dynamic";
 const PreviewTiles = dynamic(() => import("../components/PreviewTiles"), { ssr: false });
 
 export default function DetailPage() {
-  const [stage, setStage] = useState(null);
-  const [tone, setTone] = useState(null);
-  const [detail, setDetail] = useState(null);
+  const [stage, setStage] = useState("");
+  const [tone, setTone] = useState("");
+  const [detail, setDetail] = useState("");
 
   useEffect(() => {
     setStage(localStorage.getItem("selectedStage"));
@@ -25,8 +24,10 @@ export default function DetailPage() {
         <p><strong>{stage === "pregnant" ? "Week" : "Month"}:</strong> {detail || "Not selected"}</p>
       </div>
 
-      {stage && tone && (
-        <PreviewTiles stage={stage} tone={tone} />
+      {(stage && tone) && (
+        <div className="mt-6">
+          <PreviewTiles stage={stage} tone={tone} />
+        </div>
       )}
     </main>
   );
