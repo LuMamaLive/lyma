@@ -1,0 +1,55 @@
+{
+  "pregnant": {
+    "calm": [
+      {
+        "type": "expert",
+        "title": "3 Ways to Ease Prenatal Stress",
+        "source": "Dr. Levin"
+      },
+      {
+        "type": "peer",
+        "title": "How I Prepared for Birth Without Panic",
+        "source": "A Mom Like You"
+      },
+      {
+        "type": "nudge",
+        "title": "Try a 60-second body scan right now",
+        "source": "LuMama Tip"
+      }
+    ],
+    "realtalk": [
+      {
+        "type": "expert",
+        "title": "What No One Tells You About the Third Trimester",
+        "source": "Midwife Network"
+      },
+      {
+        "type": "peer",
+        "title": "Why I Was Angry in Month 7 \u2014 and What Helped",
+        "source": "Real Mom Voice"
+      },
+      {
+        "type": "nudge",
+        "title": "Feeling overwhelmed? It\u2019s okay to say that out loud.",
+        "source": "LuMama Tip"
+      }
+    ],
+    "playful": [
+      {
+        "type": "expert",
+        "title": "Laughing Through Labor \u2014 Yes, It\u2019s a Thing",
+        "source": "Doula Collective"
+      },
+      {
+        "type": "peer",
+        "title": "My Silly Baby Name List (No Regrets!)",
+        "source": "First-Time Mom"
+      },
+      {
+        "type": "nudge",
+        "title": "Play the Belly Bingo game \u2014 it\u2019s hilarious",
+        "source": "LuMama Fun"
+      }
+    ]
+  }
+}
