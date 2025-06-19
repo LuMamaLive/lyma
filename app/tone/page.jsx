@@ -15,6 +15,23 @@ export default function ToneQuiz() {
   }, []);
 
   const tones = [
+  "use client";
+
+import { useState, useEffect } from "react";
+import "../../styles/tone.css";
+
+export default function ToneQuiz() {
+  const [selectedTone, setSelectedTone] = useState(null);
+
+  // On mount, load saved tone from localStorage if any
+  useEffect(() => {
+    const savedTone = localStorage.getItem("selectedTone");
+    if (savedTone) {
+      setSelectedTone(savedTone);
+    }
+  }, []);
+
+  const tones = [
     {
       id: "calm",
       label: "Calm 💆‍♀️",
