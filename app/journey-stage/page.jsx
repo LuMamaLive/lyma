@@ -17,7 +17,7 @@ export default function JourneyStage() {
     { label: "Trying to conceive (TTC)", value: "ttc" },
     { label: "Pregnant", value: "pregnant" },
     { label: "Postpartum (0–18 months)", value: "postpartum" },
-    { label: "Mom of a young child (0–60 months)", value: "young" },
+    { label: "Mom of a young child (0–60 months)", value: "young" }
   ];
 
   const handleSelect = (value) => {
@@ -28,9 +28,9 @@ export default function JourneyStage() {
   const handleNext = () => {
     if (!selectedStage) return;
     if (selectedStage === "ttc") {
-      router.push("/detail");
+      router.push("/detail"); // no extra step for TTC
     } else {
-      router.push("/detail");
+      router.push("/stage-detail"); // correct route to month/week input
     }
   };
 
