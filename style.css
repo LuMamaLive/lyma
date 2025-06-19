@@ -1,0 +1,45 @@
+
+body {
+    margin: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #fff0f5;
+    color: #333;
+}
+
+.hero {
+    background: linear-gradient(to right, #ffd6e8, #ffe4f2);
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero-container {
+    max-width: 700px;
+    margin: auto;
+}
+
+.headline {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+    color: #c2185b;
+}
+
+.subheadline {
+    font-size: 1.5em;
+    margin-bottom: 1.2em;
+    color: #6a1b9a;
+}
+
+.cta-button {
+    background-color: #ec407a;
+    color: white;
+    padding: 0.8em 2em;
+    border: none;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: background 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #d81b60;
+}
