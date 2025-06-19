@@ -1,10 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../styles/tone.css";
 
 export default function ToneQuiz() {
   const [selectedTone, setSelectedTone] = useState(null);
+
+  // On mount, load saved tone from localStorage if any
+  useEffect(() => {
+    const savedTone = localStorage.getItem("selectedTone");
+    if (savedTone) {
+      setSelectedTone(savedTone);
+    }
+  }, []);
 
   const tones = [
     {
@@ -26,7 +34,8 @@ export default function ToneQuiz() {
 
   const handleSelect = (id) => {
     setSelectedTone(id);
-    console.log("Selected tone:", id);
+    localStorage.setItem("selectedTone", id); // Save selection
+    console.log("Selected tone saved:", id);
   };
 
   const handleNext = () => {
@@ -34,8 +43,8 @@ export default function ToneQuiz() {
       alert("Please select a tone before continuing.");
       return;
     }
-    // For now, just alert. Later: navigate or save.
     alert(`You selected: ${selectedTone}`);
+    // Later: navigate to next step or page here
   };
 
   return (
