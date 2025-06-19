@@ -1,70 +1,13 @@
-/* styles/journeyStage.css */
-.journey-container {
+.journey-stage-container {
   padding: 2rem;
-  font-family: 'Segoe UI', sans-serif;
-  min-height: 100vh;
   text-align: center;
-  background-color: #fff;
 }
 
-.stage-options {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+select {
+  padding: 0.5rem;
+  margin-top: 1rem;
 }
 
-.stage-card {
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  border: 2px solid #333;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: white;
-  transition: background-color 0.2s ease;
-}
-
-.stage-card:hover {
-  background-color: #f0f8ff;
-}
-
-.stage-card.selected {
-  background-color: #bbdefb;
-  border-color: #2196f3;
-}
-
-.buttons-row {
+.detail-input {
   margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.back-button {
-  padding: 12px 24px;
-  background-color: #ccc;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.back-button:hover {
-  background-color: #bbb;
-}
-
-.next-button {
-  padding: 12px 24px;
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease;
-}
-
-.next-button:hover {
-  background-color: #1976d2;
 }

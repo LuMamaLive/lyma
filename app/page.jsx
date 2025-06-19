@@ -1,16 +1,11 @@
-"use client";
-
-import "../style.css";
+'use client';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  const handleClick = () => {
-    window.location.href = "/tone";
-  };
-
-  return (
-    <main className="hero">
-      <h1>Welcome to LuMama 💗</h1>
-      <button className="cta-button" onClick={handleClick}>Take the Quiz</button>
-    </main>
-  );
+  const router = useRouter();
+  useEffect(() => {
+    router.push('/tone');
+  }, []);
+  return null;
 }

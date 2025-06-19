@@ -1,47 +1,46 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import "../../styles/tone.css";
+'use client';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import '../../styles/tone.css';
 
 const tones = [
   {
-    id: "calm",
-    label: "Calm 💆‍♀️",
-    description: "Gentle, soothing, supportive tone to ease anxiety and overwhelm.",
+    id: 'calm',
+    label: 'Calm 💆‍♀️',
+    description: 'Gentle, soothing, supportive tone to ease anxiety and overwhelm.',
   },
   {
-    id: "playful",
-    label: "Playful 🎉",
-    description: "Lighthearted and fun — a supportive friend who makes you smile.",
+    id: 'playful',
+    label: 'Playful 🎉',
+    description: 'Lighthearted and fun — a supportive friend who makes you smile.',
   },
   {
-    id: "realtalk",
-    label: "Realtalk 💬",
-    description: "Honest, direct, no-fluff advice from someone who’s been there.",
+    id: 'realtalk',
+    label: 'RealTalk 💬',
+    description: 'Honest, direct, no-fluff advice from someone who’s been there.',
   },
 ];
 
-export default function ToneQuiz() {
+export default function TonePage() {
   const router = useRouter();
   const [selectedTone, setSelectedTone] = useState(null);
 
   useEffect(() => {
-    const savedTone = localStorage.getItem("selectedTone");
-    if (savedTone) setSelectedTone(savedTone);
+    const saved = localStorage.getItem('selectedTone');
+    if (saved) setSelectedTone(saved);
   }, []);
 
   const handleSelect = (id) => {
     setSelectedTone(id);
-    localStorage.setItem("selectedTone", id);
+    localStorage.setItem('selectedTone', id);
   };
 
   const handleNext = () => {
     if (!selectedTone) {
-      alert("Please select a tone before continuing.");
+      alert('Please select a tone before continuing.');
       return;
     }
-    router.push("/journey-stage");
+    router.push('/journey-stage');
   };
 
   return (
@@ -51,7 +50,7 @@ export default function ToneQuiz() {
         {tones.map(({ id, label, description }) => (
           <button
             key={id}
-            className={`tone-card ${id} ${selectedTone === id ? "selected" : ""}`}
+            className={`tone-card ${selectedTone === id ? 'selected' : ''}`}
             onClick={() => handleSelect(id)}
             type="button"
           >
