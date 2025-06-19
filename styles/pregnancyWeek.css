@@ -1,5 +1,70 @@
-.pregnancy-week-container {
+/* styles/pregnancyWeek.css */
+.pregnancy-container {
   padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
   text-align: center;
-  font-size: 1.2rem;
+  background-color: #fff;
+}
+
+.week-options {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.week-card {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border: 2px solid #333;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+.week-card:hover {
+  background-color: #e0f7fa;
+}
+
+.week-card.selected {
+  background-color: #b2ebf2;
+  border-color: #00acc1;
+}
+
+.buttons-row {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.back-button {
+  padding: 12px 24px;
+  background-color: #ccc;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.back-button:hover {
+  background-color: #bbb;
+}
+
+.next-button {
+  padding: 12px 24px;
+  background-color: #ff4081;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.next-button:hover {
+  background-color: #e040fb;
 }

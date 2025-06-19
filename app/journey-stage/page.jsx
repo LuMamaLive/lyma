@@ -1,101 +1,71 @@
-'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import '../../styles/journeyStage.css';
+// app/journey-stage/page.jsx
+"use client";
 
-const stages = [
-  { id: 'TTC', label: 'Trying to Conceive' },
-  { id: 'Pregnant', label: 'Pregnant' },
-  { id: 'Postpartum', label: 'Postpartum (0–18 months)' },
-  { id: 'Mom of Young Child', label: 'Mom of Young Child (0–60 months)' },
-];
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import "../../styles/journeyStage.css";
 
-export default function JourneyStagePage() {
+export default function JourneyStage() {
   const router = useRouter();
-  const [stage, setStage] = useState('');
-  const [detail, setDetail] = useState('');
+  const [selectedStage, setSelectedStage] = useState(null);
 
-  const handleSelect = (id) => {
-    setStage(id);
-    localStorage.setItem('journeyStage', id);
+  useEffect(() => {
+    const savedStage = localStorage.getItem("selectedJourneyStage");
+    if (savedStage) setSelectedStage(savedStage);
+  }, []);
+
+  const stages = [
+    "Trying to conceive (TTC)",
+    "Pregnant",
+    "New mom (0-12 months)",
+    "Experienced mom",
+  ];
+
+  const handleSelect = (stage) => {
+    setSelectedStage(stage);
+    localStorage.setItem("selectedJourneyStage", stage);
   };
 
   const handleBack = () => {
     router.back();
   };
 
-  const handleContinue = () => {
-    if (!stage) {
-      alert('Please select your journey stage before continuing.');
+  const handleNext = () => {
+    if (!selectedStage) {
+      alert("Please select your journey stage before continuing.");
       return;
     }
 
-    if (stage === 'Pregnant' || stage === 'Postpartum' || stage === 'Mom of Young Child') {
-      return; // Wait for input
+    if (selectedStage === "Pregnant") {
+      router.push("/pregnancy-week");
+    } else {
+      // Placeholder: move to a different next step or summary
+      alert(`You selected: ${selectedStage}`);
     }
-
-    router.push('/pregnancy-week');
-  };
-
-  const handleDetailSubmit = () => {
-    if (!detail) {
-      alert('Please enter a valid number.');
-      return;
-    }
-
-    localStorage.setItem('stageDetail', detail);
-    router.push('/pregnancy-week');
   };
 
   return (
-    <main className="journey-stage-container">
-      <h2>Where are you in your journey?</h2>
+    <main className="journey-container">
+      <h1>Where are you in your journey?</h1>
       <div className="stage-options">
-        {stages.map(({ id, label }) => (
+        {stages.map((stage) => (
           <button
-            key={id}
-            className={`stage-card ${stage === id ? 'selected' : ''}`}
-            onClick={() => handleSelect(id)}
+            key={stage}
+            className={`stage-card ${selectedStage === stage ? "selected" : ""}`}
+            onClick={() => handleSelect(stage)}
             type="button"
           >
-            {label}
+            {stage}
           </button>
         ))}
       </div>
-
-      {(stage === 'Pregnant') && (
-        <div className="detail-input">
-          <label>How many weeks pregnant?</label>
-          <input
-            type="number"
-            min="0"
-            max="44"
-            value={detail}
-            onChange={(e) => setDetail(e.target.value)}
-          />
-          <button onClick={handleDetailSubmit} type="button">Personalize My Experience</button>
-        </div>
-      )}
-
-      {(stage === 'Postpartum' || stage === 'Mom of Young Child') && (
-        <div className="detail-input">
-          <label>How many months postpartum or is your child?</label>
-          <input
-            type="number"
-            min="0"
-            max="60"
-            value={detail}
-            onChange={(e) => setDetail(e.target.value)}
-          />
-          <button onClick={handleDetailSubmit} type="button">Personalize My Experience</button>
-        </div>
-      )}
-
       <div className="buttons-row">
-        <button className="back-button" onClick={handleBack} type="button">Back</button>
-        {(stage === 'TTC') && (
-          <button className="next-button" onClick={handleContinue} type="button">Continue</button>
-        )}
+        <button className="back-button" onClick={handleBack} type="button">
+          Back
+        </button>
+        <button className="next-button" onClick={handleNext} type="button">
+          Next
+        </button>
       </div>
     </main>
   );

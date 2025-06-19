@@ -1,37 +1,68 @@
-'use client';
-import { useEffect, useState } from 'react';
-import '../../styles/pregnancyWeek.css';
+// app/pregnancy-week/page.jsx
+"use client";
 
-export default function PregnancyWeekPage() {
-  const [tone, setTone] = useState('');
-  const [stage, setStage] = useState('');
-  const [detail, setDetail] = useState('');
-  const [label, setLabel] = useState('');
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import "../../styles/pregnancyWeek.css";
+
+export default function PregnancyWeek() {
+  const router = useRouter();
+  const [selectedWeek, setSelectedWeek] = useState(null);
 
   useEffect(() => {
-    const storedTone = localStorage.getItem('selectedTone');
-    const storedStage = localStorage.getItem('journeyStage');
-    const storedDetail = localStorage.getItem('stageDetail');
-
-    setTone(storedTone || '');
-    setStage(storedStage || '');
-    setDetail(storedDetail || '');
-
-    if (storedStage === 'Pregnant') {
-      setLabel('Weeks');
-    } else if (storedStage === 'Postpartum' || storedStage === 'Mom of Young Child') {
-      setLabel('Months');
-    } else {
-      setLabel('');
-    }
+    const savedWeek = localStorage.getItem("selectedWeek");
+    if (savedWeek) setSelectedWeek(savedWeek);
   }, []);
 
+  const weeks = [
+    "Less than 4 weeks",
+    "4-12 weeks",
+    "13-20 weeks",
+    "21-28 weeks",
+    "29+ weeks",
+  ];
+
+  const handleSelect = (week) => {
+    setSelectedWeek(week);
+    localStorage.setItem("selectedWeek", week);
+  };
+
+  const handleBack = () => {
+    router.back();
+  };
+
+  const handleNext = () => {
+    if (!selectedWeek) {
+      alert("Please select how far along you are.");
+      return;
+    }
+    // Next step here
+    alert(`You selected: ${selectedWeek}`);
+  };
+
   return (
-    <div className="pregnancy-week-container">
-      <h2>Welcome, Mama 💖</h2>
-      <p><strong>Tone:</strong> {tone}</p>
-      <p><strong>Journey Stage:</strong> {stage}</p>
-      {label && <p><strong>{label}:</strong> {detail}</p>}
-    </div>
+    <main className="pregnancy-container">
+      <h1>How far along are you?</h1>
+      <div className="week-options">
+        {weeks.map((week) => (
+          <button
+            key={week}
+            className={`week-card ${selectedWeek === week ? "selected" : ""}`}
+            onClick={() => handleSelect(week)}
+            type="button"
+          >
+            {week}
+          </button>
+        ))}
+      </div>
+      <div className="buttons-row">
+        <button className="back-button" onClick={handleBack} type="button">
+          Back
+        </button>
+        <button className="next-button" onClick={handleNext} type="button">
+          Next
+        </button>
+      </div>
+    </main>
   );
 }
