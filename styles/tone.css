@@ -43,3 +43,25 @@
 .tone-card.deep {
   border-color: #673ab7;
 }
+
+.tone-card.selected {
+  background-color: #ffe6f0;
+  border-color: #ff4081;
+}
+
+.next-button {
+  margin-top: 2rem;
+  padding: 12px 32px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #ff4081;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.next-button:hover {
+  background-color: #e040fb;
+}
