@@ -7,6 +7,13 @@ import "../../styles/journeyStage.css";
 export default function JourneyStage() {
   const router = useRouter();
   const [selectedStage, setSelectedStage] = useState(null);
+'use client';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+export default function JourneyStagePage() {
+  const router = useRouter();
+  const [selectedStage, setSelectedStage] = useState('');
 
   useEffect(() => {
     const savedStage = localStorage.getItem("selectedStage");
@@ -23,6 +30,7 @@ export default function JourneyStage() {
   const handleSelect = (value) => {
     setSelectedStage(value);
     localStorage.setItem("selectedStage", value);
+    localStorage.setItem("selectedJourney", value); // ✅ Fix: add selectedJourney
   };
 
   const handleNext = () => {
