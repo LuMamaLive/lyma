@@ -16,6 +16,12 @@ export default function DetailPage() {
   }, []);
 
   return (
+    <button
+          onClick={() => window.history.back()}
+          className="text-sm text-blue-500 underline mb-4 block"
+        >
+          ← Back
+        </button>
     <main className="max-w-xl mx-auto p-6">
       <h1 className="text-2xl font-semibold mb-4">Your Personalization</h1>
       <div className="space-y-2 text-lg">
