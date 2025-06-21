@@ -8,10 +8,13 @@ export default function JourneyStage() {
 
   const handleSelect = (value) => {
     localStorage.setItem('selectedJourney', value);
+
     if (value === 'postpartum') {
       router.push('/postpartum-week');
     } else if (value === 'pregnant') {
       router.push('/pregnancy-week');
+    } else if (value === 'mom of young child') {
+      router.push('/young-child-months');
     } else {
       router.push('/detail');
     }
@@ -24,37 +27,19 @@ export default function JourneyStage() {
       </button>
       <h1 className="text-2xl font-semibold mb-4">Where are you in your journey?</h1>
       <div className="space-y-4">
-        <button
-          className="w-full p-4 border rounded"
-          onClick={() => handleSelect('ttc')}
-        >
+        <button className="w-full p-4 border rounded" onClick={() => handleSelect('ttc')}>
           Trying to Conceive
         </button>
-        <button
-          className="w-full p-4 border rounded"
-          onClick={() => handleSelect('pregnant')}
-        >
+        <button className="w-full p-4 border rounded" onClick={() => handleSelect('pregnant')}>
           Pregnant
         </button>
-        <button
-          className="w-full p-4 border rounded"
-          onClick={() => handleSelect('postpartum')}
-        >
+        <button className="w-full p-4 border rounded" onClick={() => handleSelect('postpartum')}>
           Postpartum
         </button>
-        <button
-          className="w-full p-4 border rounded"
-          onClick={() => handleSelect('mom of young child')}
-        >
+        <button className="w-full p-4 border rounded" onClick={() => handleSelect('mom of young child')}>
           Mom of Young Child
         </button>
       </div>
-      <button
-        onClick={() => window.history.back()}
-        className="block mt-6 text-blue-500"
-      >
-        &larr; Back
-      </button>
     </main>
   );
 }
