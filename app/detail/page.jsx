@@ -1,35 +1,40 @@
+"use client";
 
-'use client';
-import React, { useEffect, useState } from 'react';
-import PreviewTiles from '../components/PreviewTiles';
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+const PreviewTiles = dynamic(() => import("../components/PreviewTiles"), { ssr: false });
 
 export default function DetailPage() {
-  const [tone, setTone] = useState(null);
-  const [journey, setJourney] = useState(null);
-  const [week, setWeek] = useState(null);
+  const [stage, setStage] = useState("");
+  const [tone, setTone] = useState("");
+  const [detail, setDetail] = useState("");
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setTone(localStorage.getItem('selectedTone'));
-      setJourney(localStorage.getItem('selectedJourney'));
-      setWeek(localStorage.getItem('selectedWeek'));
-    }
+    setStage(localStorage.getItem("selectedStage"));
+    setTone(localStorage.getItem("selectedTone"));
+    setDetail(localStorage.getItem("selectedDetail"));
   }, []);
 
   return (
+    <button
+          onClick={() => window.history.back()}
+          className="text-sm text-blue-500 underline mb-4 block"
+        >
+          ← Back
+        </button>
     <main className="max-w-xl mx-auto p-6">
-      <button onClick={() => window.history.back()} className="text-blue-500 mb-4">
-        &larr; Back
-      </button>
       <h1 className="text-2xl font-semibold mb-4">Your Personalization</h1>
       <div className="space-y-2 text-lg">
         <p><strong>Tone:</strong> {tone || "Not selected"}</p>
-        <p><strong>Journey Stage:</strong> {journey || "Not selected"}</p>
-        <p><strong>Week/Month:</strong> {week || "Not specified"}</p>
+        <p><strong>Stage:</strong> {stage || "Not selected"}</p>
+        <p><strong>{stage === "pregnant" ? "Week" : "Month"}:</strong> {detail || "Not selected"}</p>
       </div>
-      <div className="mt-8">
-        <PreviewTiles />
-      </div>
+
+      {(stage && tone) && (
+        <div className="mt-6">
+          <PreviewTiles stage={stage} tone={tone} />
+        </div>
+      )}
     </main>
   );
 }

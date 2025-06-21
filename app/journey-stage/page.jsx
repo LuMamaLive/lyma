@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -14,42 +13,48 @@ export default function JourneyStage() {
     if (savedStage) setSelectedStage(savedStage);
   }, []);
 
-  const handleStageClick = (value) => {
-    setSelectedStage(value);
-    localStorage.setItem("selectedStage", value);
-    localStorage.setItem("selectedJourney", value);
-
-    if (value === "postpartum") {
-      router.push("/postpartum-week");
-    } else if (value === "mom of young child") {
-      router.push("/young-child-months");
-    } else if (value === "pregnant") {
-      router.push("/pregnancy-week");
-    } else {
-      router.push("/detail");
-    }
-  };
-
   const stages = [
     { label: "Trying to conceive (TTC)", value: "ttc" },
     { label: "Pregnant", value: "pregnant" },
-    { label: "Postpartum", value: "postpartum" },
-    { label: "Mom of young child (0–60 months)", value: "mom of young child" },
+    { label: "Postpartum (0–18 months)", value: "postpartum" },
+    { label: "Mom of a young child (0–60 months)", value: "young" }
   ];
 
+  const handleSelect = (value) => {
+    setSelectedStage(value);
+    localStorage.setItem("selectedStage", value);
+  };
+
+  const handleNext = () => {
+    if (!selectedStage) return;
+    if (selectedStage === "ttc") {
+      router.push("/detail"); // no extra step for TTC
+    } else {
+      router.push("/stage-detail"); // correct route to month/week input
+    }
+  };
+
+  const handleBack = () => {
+    router.back();
+  };
+
   return (
-    <main className="quiz-stage">
+    <main className="journey-container">
       <h1>Where are you in your journey?</h1>
-      <div className="stage-grid">
-        {stages.map((stage) => (
+      <div className="stage-options">
+        {stages.map(({ label, value }) => (
           <button
-            key={stage.value}
-            className={`stage-tile ${selectedStage === stage.value ? "selected" : ""}`}
-            onClick={() => handleStageClick(stage.value)}
+            key={value}
+            className={`stage-card ${selectedStage === value ? "selected" : ""}`}
+            onClick={() => handleSelect(value)}
           >
-            {stage.label}
+            {label}
           </button>
         ))}
+      </div>
+      <div className="button-row">
+        <button onClick={handleBack}>Back</button>
+        <button onClick={handleNext}>Continue</button>
       </div>
     </main>
   );

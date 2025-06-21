@@ -1,38 +1,39 @@
+"use client";
 
-'use client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-export default function PreviewTiles() {
-  const [tone, setTone] = useState('');
-  const [journey, setJourney] = useState('');
-  const [week, setWeek] = useState('');
+export default function PreviewTiles({ stage, tone }) {
+  const [tiles, setTiles] = useState([]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setTone(localStorage.getItem('selectedTone') || '');
-      setJourney(localStorage.getItem('selectedJourney') || '');
-      setWeek(localStorage.getItem('selectedWeek') || '');
+    async function fetchTiles() {
+      try {
+        const res = await fetch("/data/preview_tiles.json");
+        const data = await res.json();
+        const stageData = data[stage] || {};
+        const toneTiles = stageData[tone] || [];
+        setTiles(toneTiles);
+      } catch (err) {
+        console.error("Failed to load preview tiles:", err);
+      }
     }
-  }, []);
 
-  const getAdviceText = () => {
-    if (!journey && !week) return "Tailored insights based on your stage of pregnancy or postpartum.";
-    return `Insights for ${journey}${week ? ` — ${week}` : ''}.`;
-  };
+    if (stage && tone) fetchTiles();
+  }, [stage, tone]);
+
+  if (!tiles.length) return null;
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', padding: '1rem' }}>
-      <div style={{ border: '1px solid #ccc', borderRadius: '12px', padding: '1rem' }}>
-        <h3>Expert Advice</h3>
-        <p>{getAdviceText()}</p>
-      </div>
-      <div style={{ border: '1px solid #ccc', borderRadius: '12px', padding: '1rem' }}>
-        <h3>Ripple Voices</h3>
-        <p>Support stories from moms navigating {journey || "this stage"}.</p>
-      </div>
-      <div style={{ border: '1px solid #ccc', borderRadius: '12px', padding: '1rem' }}>
-        <h3>Prompt of the Week</h3>
-        <p>As a {tone || 'mom'}, what helped you feel most supported this week?</p>
+    <div className="mt-6 space-y-4">
+      <h2 className="text-xl font-semibold">Here’s what might help right now:</h2>
+      <div className="grid gap-4 md:grid-cols-3">
+        {tiles.map((tile, index) => (
+          <div key={index} className="border rounded-xl p-4 shadow-sm bg-white">
+            <p className="text-sm font-medium text-gray-500">{tile.type.toUpperCase()}</p>
+            <h3 className="text-base font-semibold mt-1">{tile.title}</h3>
+            <p className="text-sm text-gray-400 mt-1">— {tile.source}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
