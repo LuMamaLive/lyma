@@ -59,3 +59,5 @@ export default function JourneyStage() {
     </main>
   );
 }
+// LOCKED: Journey stage + confirmation input
+console.log('Journey selection and confirm logic active');

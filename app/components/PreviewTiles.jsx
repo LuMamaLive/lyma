@@ -1,39 +1,20 @@
-"use client";
 
-import { useEffect, useState } from "react";
+import React from 'react';
 
-export default function PreviewTiles({ stage, tone }) {
-  const [tiles, setTiles] = useState([]);
-
-  useEffect(() => {
-    async function fetchTiles() {
-      try {
-        const res = await fetch("/data/preview_tiles.json");
-        const data = await res.json();
-        const stageData = data[stage] || {};
-        const toneTiles = stageData[tone] || [];
-        setTiles(toneTiles);
-      } catch (err) {
-        console.error("Failed to load preview tiles:", err);
-      }
-    }
-
-    if (stage && tone) fetchTiles();
-  }, [stage, tone]);
-
-  if (!tiles.length) return null;
-
+export default function PreviewTiles() {
   return (
-    <div className="mt-6 space-y-4">
-      <h2 className="text-xl font-semibold">Here’s what might help right now:</h2>
-      <div className="grid gap-4 md:grid-cols-3">
-        {tiles.map((tile, index) => (
-          <div key={index} className="border rounded-xl p-4 shadow-sm bg-white">
-            <p className="text-sm font-medium text-gray-500">{tile.type.toUpperCase()}</p>
-            <h3 className="text-base font-semibold mt-1">{tile.title}</h3>
-            <p className="text-sm text-gray-400 mt-1">— {tile.source}</p>
-          </div>
-        ))}
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', padding: '1rem' }}>
+      <div style={{ border: '1px solid #ccc', borderRadius: '12px', padding: '1rem' }}>
+        <h3>Expert Advice</h3>
+        <p>Tailored insights based on your stage of pregnancy or postpartum.</p>
+      </div>
+      <div style={{ border: '1px solid #ccc', borderRadius: '12px', padding: '1rem' }}>
+        <h3>Ripple Voices</h3>
+        <p>Real stories and support from moms like you.</p>
+      </div>
+      <div style={{ border: '1px solid #ccc', borderRadius: '12px', padding: '1rem' }}>
+        <h3>Prompt of the Week</h3>
+        <p>What helped you feel most supported this week?</p>
       </div>
     </div>
   );

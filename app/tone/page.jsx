@@ -66,3 +66,6 @@ export default function ToneQuiz() {
     </main>
   );
 }
+
+// LOCKED: Tone button logic
+console.log('Tone button logic ready');

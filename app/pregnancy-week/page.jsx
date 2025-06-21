@@ -66,3 +66,6 @@ export default function PregnancyWeek() {
     </main>
   );
 }
+
+// LOCKED: Week input + localStorage 7-day
+console.log('Week input logic live with expiry');
