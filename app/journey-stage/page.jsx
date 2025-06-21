@@ -1,44 +1,55 @@
 
-'use client';
-import React from 'react';
-import { useRouter } from 'next/navigation';
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import "../../styles/journeyStage.css";
 
 export default function JourneyStage() {
   const router = useRouter();
+  const [selectedStage, setSelectedStage] = useState(null);
 
-  const handleSelect = (value) => {
-    localStorage.setItem('selectedJourney', value);
+  useEffect(() => {
+    const savedStage = localStorage.getItem("selectedStage");
+    if (savedStage) setSelectedStage(savedStage);
+  }, []);
 
-    if (value === 'postpartum') {
-      router.push('/postpartum-week');
-    } else if (value === 'pregnant') {
-      router.push('/pregnancy-week');
-    } else if (value === 'mom of young child') {
-      router.push('/young-child-months');
+  const handleStageClick = (value) => {
+    setSelectedStage(value);
+    localStorage.setItem("selectedStage", value);
+    localStorage.setItem("selectedJourney", value);
+
+    if (value === "postpartum") {
+      router.push("/postpartum-week");
+    } else if (value === "mom of young child") {
+      router.push("/young-child-months");
+    } else if (value === "pregnant") {
+      router.push("/pregnancy-week");
     } else {
-      router.push('/detail');
+      router.push("/detail");
     }
   };
 
+  const stages = [
+    { label: "Trying to conceive (TTC)", value: "ttc" },
+    { label: "Pregnant", value: "pregnant" },
+    { label: "Postpartum", value: "postpartum" },
+    { label: "Mom of young child (0–60 months)", value: "mom of young child" },
+  ];
+
   return (
-    <main className="max-w-xl mx-auto p-6">
-      <button onClick={() => window.history.back()} className="text-blue-500 mb-4">
-        &larr; Back
-      </button>
-      <h1 className="text-2xl font-semibold mb-4">Where are you in your journey?</h1>
-      <div className="space-y-4">
-        <button className="w-full p-4 border rounded" onClick={() => handleSelect('ttc')}>
-          Trying to Conceive
-        </button>
-        <button className="w-full p-4 border rounded" onClick={() => handleSelect('pregnant')}>
-          Pregnant
-        </button>
-        <button className="w-full p-4 border rounded" onClick={() => handleSelect('postpartum')}>
-          Postpartum
-        </button>
-        <button className="w-full p-4 border rounded" onClick={() => handleSelect('mom of young child')}>
-          Mom of Young Child
-        </button>
+    <main className="quiz-stage">
+      <h1>Where are you in your journey?</h1>
+      <div className="stage-grid">
+        {stages.map((stage) => (
+          <button
+            key={stage.value}
+            className={`stage-tile ${selectedStage === stage.value ? "selected" : ""}`}
+            onClick={() => handleStageClick(stage.value)}
+          >
+            {stage.label}
+          </button>
+        ))}
       </div>
     </main>
   );
