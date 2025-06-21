@@ -1,19 +1,11 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import "../../styles/journeyStage.css";
-
-export default function JourneyStage() {
-  const router = useRouter();
-  const [selectedStage, setSelectedStage] = useState(null);
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function JourneyStagePage() {
   const router = useRouter();
-  const [selectedStage, setSelectedStage] = useState('');
+  const [selectedStage, setSelectedStage] = useState(null);
 
   useEffect(() => {
     const savedStage = localStorage.getItem("selectedStage");
@@ -30,15 +22,14 @@ export default function JourneyStagePage() {
   const handleSelect = (value) => {
     setSelectedStage(value);
     localStorage.setItem("selectedStage", value);
-    localStorage.setItem("selectedJourney", value); // ✅ Fix: add selectedJourney
   };
 
   const handleNext = () => {
     if (!selectedStage) return;
     if (selectedStage === "ttc") {
-      router.push("/detail"); // no extra step for TTC
+      router.push("/detail");
     } else {
-      router.push("/stage-detail"); // correct route to month/week input
+      router.push("/stage-detail");
     }
   };
 
