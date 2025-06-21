@@ -1,122 +1,60 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import "../../styles/pregnancyWeek.css";
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function StageDetailPage() {
+export default function JourneyStagePage() {
   const router = useRouter();
-  const [journey, setJourney] = useState("");
-  const [inputValue, setInputValue] = useState("");
-  const [postpartumWeek, setPostpartumWeek] = useState("");
-  const [askPostpartumWeeks, setAskPostpartumWeeks] = useState(false);
+  const [selectedStage, setSelectedStage] = useState(null);
 
   useEffect(() => {
-    const storedJourney = localStorage.getItem("selectedJourney");
-    setJourney(storedJourney || "");
+    const savedStage = localStorage.getItem("selectedStage");
+    if (savedStage) setSelectedStage(savedStage);
   }, []);
 
-  const handleMainSubmit = () => {
-    const value = parseInt(inputValue, 10);
+  const stages = [
+    { label: "Trying to conceive (TTC)", value: "ttc" },
+    { label: "Pregnant", value: "pregnant" },
+    { label: "Postpartum (0–18 months)", value: "postpartum" },
+    { label: "Mom of a young child (0–60 months)", value: "young" }
+  ];
 
-    if (journey === "pregnant" && (value < 0 || value > 44)) {
-      alert("Please enter a number of weeks between 0 and 44.");
-      return;
-    }
+  const handleSelect = (value) => {
+    setSelectedStage(value);
+    localStorage.setItem("selectedStage", value);
+  };
 
-    if (journey === "postpartum" && (value < 0 || value > 18)) {
-      alert("Please enter a number of months between 0 and 18.");
-      return;
-    }
-
-    if (journey === "young" && (value < 0 || value > 60)) {
-      alert("Please enter a number of months between 0 and 60.");
-      return;
-    }
-
-    localStorage.setItem("selectedWeekMonth", value);
-
-    if (journey === "postpartum" && value === 0) {
-      setAskPostpartumWeeks(true);
-    } else {
+  const handleNext = () => {
+    if (!selectedStage) return;
+    if (selectedStage === "ttc") {
       router.push("/detail");
+    } else {
+      router.push("/stage-detail");
     }
   };
 
-  const handlePostpartumWeekSubmit = () => {
-    const value = parseInt(postpartumWeek, 10);
-    if (value < 0 || value > 4) {
-      alert("Please enter a number of weeks between 0 and 4.");
-      return;
-    }
-    localStorage.setItem("selectedWeekMonth", `${value} weeks postpartum`);
-    router.push("/detail");
-  };
-
-  const skipPostpartumWeek = () => {
-    router.push("/detail");
+  const handleBack = () => {
+    router.back();
   };
 
   return (
-    <div className="pregnancy-week-container">
-      {journey === "pregnant" && (
-        <>
-          <label>How many weeks pregnant?</label>
-          <input
-            type="number"
-            min="0"
-            max="44"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <button onClick={handleMainSubmit}>Personalize My Experience</button>
-        </>
-      )}
-
-      {journey === "postpartum" && !askPostpartumWeeks && (
-        <>
-          <label>How many months postpartum?</label>
-          <input
-            type="number"
-            min="0"
-            max="18"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <button onClick={handleMainSubmit}>Personalize My Experience</button>
-        </>
-      )}
-
-      {journey === "young" && (
-        <>
-          <label>How many months old is your child?</label>
-          <input
-            type="number"
-            min="0"
-            max="60"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <button onClick={handleMainSubmit}>Personalize My Experience</button>
-        </>
-      )}
-
-      {askPostpartumWeeks && (
-        <>
-          <label>Want to share how many weeks postpartum you are?</label>
-          <input
-            type="number"
-            min="0"
-            max="4"
-            value={postpartumWeek}
-            onChange={(e) => setPostpartumWeek(e.target.value)}
-          />
-          <div>
-            <button onClick={handlePostpartumWeekSubmit}>Continue</button>
-            <button onClick={skipPostpartumWeek}>Skip</button>
-          </div>
-        </>
-      )}
-    </div>
+    <main className="journey-container">
+      <h1>Where are you in your journey?</h1>
+      <div className="stage-options">
+        {stages.map(({ label, value }) => (
+          <button
+            key={value}
+            className={`stage-card ${selectedStage === value ? "selected" : ""}`}
+            onClick={() => handleSelect(value)}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <div className="button-row">
+        <button onClick={handleBack}>Back</button>
+        <button onClick={handleNext}>Continue</button>
+      </div>
+    </main>
   );
 }
